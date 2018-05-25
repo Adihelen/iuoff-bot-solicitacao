@@ -199,16 +199,16 @@ div#chat.conv-form-wrapper div#messages {
 } */
 
 div#chat div.options {
-    word-wrap: normal;
-    white-space: pre-wrap;
-    overflow-x: auto;
-    position: absolute;
-    bottom: 100%;
-    width: 100%;
-    text-overflow: clip;
-    transform: translateY(-5px);
-    float: left;
-    display: block;
+    word-wrap: normal !important;
+    white-space: pre-wrap !important;
+    overflow-x: auto !important;
+    position: absolute !important;
+    bottom: 100% !important;
+    width: 100% !important;
+    text-overflow: clip !important;
+    transform: translateY(-5px) ;
+    float: left !important;
+    display: block !important;
 }
 
 div#chat div.options:after {
