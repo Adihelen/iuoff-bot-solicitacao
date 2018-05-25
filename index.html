@@ -20,20 +20,16 @@
 					<div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
 						<div class="card no-border">
 							<div id="chat" class="conv-form-wrapper">
-								<form action="" method="GET" class="hidden">
-									<input type="text" name="greetings" data-no-answer="true" data-conv-question="Olá! Eu sou Fred da iUOFF.">
-
-									<input type="text" name="name" data-conv-question="Certo! Primeiro, me diga como devo chamá-lo, por favor?">
-									<input type="text" data-conv-question="Legal, {name}:0! É um prazer conversar com você." data-no-answer="true">
-
-									<select name="packages-see" data-conv-question="Dêu uma olhada em nossos pacotes para encontrar a viagem perfeita para você?">
+								<form action="" method="post" class="hidden">
+									<input type="text" name="greetings" data-no-answer="true" data-conv-question="Olá! Eu sou o Fred da iUOFF. É um prazer te receber!">
+									<select name="packages-see" data-conv-question="Já deu uma olhada em nossos pacotes para encontrar a viagem perfeita para você?">
 										<option value="yes">Ok, vou olhar!</option>
 										<option value="no">Quero saber mais!</option>
-										<option value="otherthing">É outra coisa</option>
+										<!-- <option value="otherthing">É outra coisa</option> -->
 									</select>
 									<div data-conv-fork="packages-see">
 										<div data-conv-case="yes">
-											<input type="text" data-conv-question="Se precisar de ajuda, me dê um Oi aqui. :)">
+											<input type="text" data-conv-question="Ok, acesse nosso site: www.iuoff.com.br , para saber mais :)">
 											<select name="no-packages" data-conv-question="Vou redirecionar você para os pacotes disponiveis.">
 												<option value="yes" data-callback="navToPacotes">Ok, obrigado!</option>
 											</select>
@@ -41,103 +37,95 @@
 
 										<div data-conv-case="no">
 											<select name="no-packages" data-conv-question="Humm.. Então, você não encontrou um pacote de acordo com seus interesses!">
-												<option value="yes">Não</option>
+												<option value="yes">Não, quero uma viagem personalizada.</option>
 												<option value="no" data-callback="navToPacotes">Quero ver os pacotes!</option>
 											</select>
 										</div>
 
 										<div data-conv-fork="no-packages">
 											<div data-conv-case="yes">
-												<input type="text" name="help-answer-1" data-conv-question="Então, preciso de alguns dados poder te ajudar com os pacotes." data-no-answer="true">
-												
-												<input type="text" id="fullname" name="fullname" required placeholder="Qual o seu nome completo?" data-conv-question="Me diga seu nome completo?">
+												<input type="text" name="help-answer-1" data-conv-question="Ok, então preciso de alguns dados para montar uma viagem perfeita pra você!"
+												 data-no-answer="true">
 
-												<input data-conv-question="Qual o seu email?" data-pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-												 id="email" type="email" name="email" required placeholder="Qual o seu email?">
+												<input type="text" id="fullname" name="fullname" required placeholder="Me diga seu nome completo?" data-conv-question="Me diga seu nome completo?">
 
-												<input data-conv-question="Agora me diga uma segredo (um password)" type="password" data-minlength="6" id="senha" name="password"
+												<input data-conv-question="Qual é o seu email?" data-pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+												 id="email" type="email" name="email" required placeholder="ex: seunome@gmail.com">
+
+												<input data-conv-question="Agora me diga uma senha de até 6 digitos" type="password" data-minlength="6" id="senha" name="password"
 												 required placeholder="password">
 
-												<input type="text" id="telefone" name="telefone" required placeholder="(whats app)" data-conv-question="Qual o telefone para contato? (whats app)">
-												
-												<input type="text" id="destino" name="destino" data-maxlength="20"
-												data-conv-question="Ok, Para preparamos uma opção de viagem incrível para você, me diga, pra onde você pretende viajar? Ex: Porto de Galinhas">
+												<input type="text" id="telefone" name="telefone" data-maxlength="11" required placeholder="(whats app)" data-conv-question="Qual é seu telefone para contato com DDD? (Whastsapp)">
 
-												<input type="text" id="origem" name="origem" required placeholder="Cidade brasileira" data-conv-question="Legal! De qual cidade você vai partir?">
+												<input type="text" id="destino" name="destino" data-maxlength="20" data-conv-question="Ok, para prepararmos uma opção de viagem incrível para você, me diga, pra onde você pretende viajar? Ex: Porto de Galinhas">
 
-												<input type="text" id="data-inicio" name="data-inicio" required placeholder="DD-MM-AAAA" data-conv-question="Ótimo! A partir de que dia você está disponível para viajar? Escreva no formato de Data DD-MM-AAAA">
+												<input type="text" id="origem" name="origem" required placeholder="Cidade brasileira" data-conv-question="De qual cidade você vai partir?">
 
-												<input type="text" id="data-volta" name="data-volta" required placeholder="DD-MM-AAAA" data-conv-question="Beleza! Até que dia você precisa estar de volta? Escreva no formato de Data DD-MM-AAAA">
+												<select name="multi[]" id="servicos" data-conv-question="Legal! Quais serviços você gostaria de incluir em seu pacote? Marque quantos quiser." multiple>
+													<option value="Passagens">Passagens</option>
+													<option value="Hospedagem">Hospedagem</option>
+													<option value="Translados">Translados</option>
+													<option value="Passeios">Passeios</option>
+													<option value="Aluguel de Carro">Aluguel de Carro</option>
+													<option value="Ingressos">Ingressos</option>
+												</select>
 
-												<input type="text" id="qtd-pessoas" name="qtd-pessoas" required placeholder="00" data-conv-question="Isso aí! Quantas pessoas farão essa viagem? Escreva em formato de número 00">
 
-												<input type="text" id="qtd-criancas" data-callback="parseIdadeCriancas" name="qtd-criancas" required placeholder="00" data-conv-question="Quantas delas são crianças? Escreva em formato de número 00">
+												<input type="text" id="data-inicio" name="data-inicio" required placeholder="DD-MM-AAAA" data-conv-question="Ótimo! A partir de que dia você está disponível para viajar? Escreva no formato de Data DD/MM/AAAA">
+
+												<input type="text" id="data-volta" name="data-volta" required placeholder="DD-MM-AAAA" data-conv-question="Até que dia você precisa estar de volta? Escreva no formato de Data DD/MM/AAAA">
+
+												<input type="text" id="qtdDias" name="qtdDias" required placeholder="Ex: De 5 a 7 dias." data-conv-question="Quantos dias pretende ficar? Ex: De 5 a 7 dias.">
+
+												<input type="text" id="qtd-pessoas" name="qtd-pessoas" required placeholder="00" data-conv-question="Beleza! Quantas pessoas farão essa viagem, incluindo adultos e crianças? Escreva no formato de número 00">
+
+												<input type="text" id="qtd-criancas" data-callback="parseIdadeCriancas" name="qtd-criancas" required placeholder="00" data-conv-question="Quantas delas são crianças? Escreva no formato de número 00">
 
 												<div class="idadec" data-conv-fork="qtd-criancas">
 													<div id="idadec-fork" data-conv-case="false">
-														<input type="text" id="idade-criancas" name="idade-criancas" required placeholder="00" data-conv-question="Qual a idade de cada criança?">
+														<input type="text" id="idade-criancas" name="idade-criancas" required placeholder="00" data-conv-question="Qual é a idade de cada criança? Separe por virgula">
 													</div>
 												</div>
+
+												<input type="text" id="valorInicial" name="valorInicial" required placeholder="ex: 5000" data-conv-question="Isso aí! Quanto pretende gastar com essa viagem? Informe o valor em real no formato 0000. Escreva 00 se não souber.">
 												
-												<select name="intent_payment" data-conv-question="Você tem ideia de quanto pretende gastar com essa viagem?">
-													<option value="sim">Não</option>
-													<option value="nao" data-callback="navToPacotes">Quero ver os pacotes!</option>
-												</select>
-
-												<div data-conv-fork="intent_payment">
-													<div data-conv-case="sim">
-														<input type="text" id="valor_pretendido" name="valor_pretendido" required placeholder="Ex: 1000" data-conv-question="Quanto? Informe o valor real no formato 0000">
-
-														<select name="intent_payment" id="intent_payment" data-conv-question="Esse valor é:">
+												<div data-conv-fork="valorInicial">
+														<select name="valorInicialTipo" id="valorInicialTipo" data-conv-question="Esse valor é:">
 															<option value="por pessoa">Por pessoa</option>
-															<option value="para todos">Para Todos</option>
+															<option value="para-todos">Para Todos</option>
 														</select>
 
-													</div>
-												</div>
-
-												<select name="intent_detalhes" id="intent_detalhes" data-conv-question="Ótimo! Com essas informações já dá pra montar algumas opções para a sua viagem. Quer dar mais algum detalhe? Deixar um comentário como preferências de categoria de hotel, tipos de passeios, alimentação, dentre outras para nos ajudar a enviar propostas o mais interessantes possível para você? Fique a vontade para escrever!">
-														<option value="sim">Sim, quero acrescentar detalhes.</option>
-														<option value="nao">Não, Obrigado!</option>
-													</select>
-
-													<div data-conv-fork="intent_detalhes">
-															<div data-conv-case="sim">
-																	<input type="text" id="detalhes_extras" name="detalhes_extras" required placeholder="..." data-conv-question="Ok, vamos lá!">
-
-																	<select name="no-packages" data-conv-question="Ok! Com essas informações já dá pra montar algumas opções para a sua viagem. Se quiser, Clique aqui para fazer seu login e acompanhar o recebimento das propostas que nossos consultores, especialistas em viagem, vão preparar para você! Basta aguardar que dentro de até 72 horas você receberá algumas opções de acordo com seus interesses.">
-																			<option value="sim" data-callback="navToLogin">Sim, fazer meu login.</option>
-																			<option value="nao" data-callback="finalizarChat">Depois :)</option>
-																		</select>
-															</div>
-					
-															<div data-conv-case="nao">
-																<select name="no-packages" data-conv-question="Ok! Com essas informações já dá pra montar algumas opções para a sua viagem. Se quiser, Clique aqui para fazer seu login e acompanhar o recebimento das propostas que nossos consultores, especialistas em viagem, vão preparar para você! Basta aguardar que dentro de até 72 horas você receberá algumas opções de acordo com seus interesses.">
-																	<option value="sim">Sim, fazer meu login.</option>
-																	<option value="nao" data-callback="navToPacotes">Depois :)</option>
-																</select>
+														<div data-conv-fork="intent_detalhes">
+															<div data-conv-case="para-todos">
+																<input type="text" id="para-todos-desc" name="para-todos-desc" data-conv-question="Legal! Quer dar mais algum detalhe? Deixe um comentário como preferências em relação a hospedagem, tipo de passeios, alimentação, motivo da viagem, dentre outras para nos ajudar a enviar propostas o mais interessante possível para você! Fique à vontade para escrever!" required>
 															</div>
 														</div>
 
-												<!-- <select name="multi[]" data-conv-question="Você tem ideia de quanto pretende gastar com essa viagem?" multiple>
-														<option value="Sim">Sim</option>
-														<option value="Nao">Não</option>
-													</select> -->
-													
-											</div>
-
-											<div data-conv-case="no">
-												<input type="text" name="help-answer" data-conv-question="Me diga, em que posso ajudar?" data-no-answer="false">
+														<select name="no-packages" data-conv-question="Ok! Com essas informações já dá pra montar algumas opções para a sua viagem. Seu próximo passo é fazer login e autorizar nossas notificações para acompanhar o recebimento das propostas que nossos consultores especialistas em viagem vão preparar para você. Basta aguardar que em até 72 horas você receberá algumas opções de acordo com seus interesses.">
+															<option value="sim" data-callback="navToLogin">Sim, fazer meu login.</option>
+															<option value="nao" data-callback="finalizarChat">Depois :)</option>
+														</select>
+												</div>
 											</div>
 										</div>
+
+										
 
 										<div data-conv-case="otherthing">
 											<input type="text" name="help-answer-consultant" data-conv-question="Faça uma pergunta a um de nossos consultores" data-no-answer="false">
 											<select name="help-answer-consultant-select" id="help-answer-consultant-select" data-conv-question="Ok, vou redireciona-lo para nossos consultores, pode ser?">
-													<option value="sim" data-callback="redirectToConsultant">Sim, por favor!</option>
-													<option value="nao">Não, Obrigado!</option>
-												</select>
+												<option value="sim" data-callback="redirectToConsultant">Sim, por favor!</option>
+												<option value="nao">Não, Obrigado!</option>
+											</select>
+
+											<div data-conv-fork="help-answer-consultant-select">
+												<div data-conv-case="nao">
+													<input type="text" name="bye" data-conv-question="Ok, Até logo :)"
+												 data-no-answer="true">
+												</div>
+											</div>
 										</div>
+										
 									</div>
 
 								</form>
@@ -152,7 +140,7 @@
 	<script type="text/javascript" src="dist/autosize.min.js"></script>
 	<script type="text/javascript" src="dist/jquery.convform.js"></script>
 
-	<script>
+	<script type="text/javascript">
 		function google() {
 			window.open("https://google.com");
 		}
@@ -165,31 +153,49 @@
 			window.open("http://oqtdb-hml.azurewebsites.net/packages")
 		}
 
-		function parseIdadeCriancas(){
+		function parseIdadeCriancas() {
 			var idade_crianca = $("#qtd-criancas").val();
-			if(parseInt(idade_crianca)>0){
+			if (parseInt(idade_crianca) > 0) {
 				$("#idadec").show();
-			}else{
+			} else {
 				$("#idadec").remove();
 			}
 		}
 
-		function navToLogin(){
-			window.open("http://oqtdb-hml.azurewebsites.net/login");
+		function navToLogin() {
+			window.open("https://iuoff-admin.azurewebsites.net/");
 			finalizarChat();
 		}
 
-		function finalizarChat(){
-			
+		function finalizarChat() {
+			var formBot = {
+				nomecompleto:$("#fullname").val(),
+				email:$("#email").val(),
+				password:$("#senha").val(),
+				telefone:$("#telefone").val(),
+				destino:$("#destino").val(),
+				origem:$("#origem").val(),
+				servicosInclusos:$("#servicos").val(),
+				dataInicio:$("#data-inicio").val(),
+				dataVolta:$("#data-volta").val(),
+				qtdDias:$("#qtdDias").val(),
+				qtdPessoas:$("#qtd-pessoas").val(),
+				qtdCriancas:$("#qtd-criancas").val(),
+				idadeCriancas:$("#idade-criancas").val(),
+				valorInicial:$("#valorInicial").val(),
+				valorInicialTipo:$("#valorInicialTipo").val(),
+				valorInicialSelecionado:$("#para-todos-desc").val()
+			};
 		}
 
-		function redirectToConsultant(){
+		function redirectToConsultant() {
 
 		}
 
 		var rollbackTo = false;
 		var originalState = false;
 		function storeState(stateWrapper) {
+
 			rollbackTo = stateWrapper.current;
 			console.log("storeState called: ", rollbackTo);
 		}
