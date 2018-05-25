@@ -188,7 +188,7 @@ div#chat.conv-form-wrapper div#messages {
     padding-bottom: 20px;
     /*max-height: 71vh;*/
 }
-div#chat div.options {
+/* div#chat div.options {
     word-wrap: normal;
     white-space: nowrap;
     overflow-x: scroll;
@@ -196,7 +196,21 @@ div#chat div.options {
     bottom: 100%;
     width: 100%;
     transform: translateY(-5px);
+} */
+
+div#chat div.options {
+    word-wrap: normal;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+    text-overflow: clip;
+    transform: translateY(-5px);
+    float: left;
+    display: block;
 }
+
 div#chat div.options:after {
     content: '';
     display: table;
